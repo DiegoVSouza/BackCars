@@ -13,10 +13,10 @@ interface IRequest {
     category_id: string
 }
 
-// @injectable()
+@injectable()
 class CreateCarUseCase {
     constructor(
-        // @inject('CarsRepository')
+        @inject("CarsRepository")
         private carsRepository: ICarsRepository
     ) { }
 
@@ -24,6 +24,7 @@ class CreateCarUseCase {
         const carAlredyExists = await this.carsRepository.findByLicensePlate(license_plate)
 
         if (carAlredyExists) throw new AppError("Car alredy exists")
+
         const car = await this.carsRepository.create({ name, description, category_id, daily_rate, fine_amount, brand, license_plate })
 
         return car
