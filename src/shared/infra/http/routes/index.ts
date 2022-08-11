@@ -13,6 +13,6 @@ router.use("/users", userRoutes)
 router.use(authenticateRoutes)
 router.use("/categories", categoriesRoutes);
 router.use("/specifications", specificationRoutes)
-router.use(carRoutes)
+router.use("/cars", carRoutes)
 
 export { router }
