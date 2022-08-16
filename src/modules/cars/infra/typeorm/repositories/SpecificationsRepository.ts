@@ -1,11 +1,11 @@
 import { In, Repository } from "typeorm";
 import { AppDataSource } from "../../../../../shared/infra/typeorm/dataSourceConfig";
 import { Specification } from "../../../../../shared/infra/typeorm/entities/Specification";
-import { ICreateSpecificationDTO, ISpecificationRepository } from "../../../repositories/interfaces/ISpecificationRepository";
+import { ICreateSpecificationDTO, ISpecificationsRepository } from "../../../repositories/interfaces/ISpecificationsRepository";
 
 
 const dataSource = AppDataSource
-class SpecificationRepository implements ISpecificationRepository {
+class SpecificationsRepository implements ISpecificationsRepository {
 
     private repository: Repository<Specification>
 
@@ -36,4 +36,4 @@ class SpecificationRepository implements ISpecificationRepository {
 
 
 
-export { SpecificationRepository }
+export { SpecificationsRepository }

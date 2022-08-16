@@ -1,7 +1,7 @@
 import { Specification } from "../../../../shared/infra/typeorm/entities/Specification";
-import { ICreateSpecificationDTO, ISpecificationRepository } from "../interfaces/ISpecificationRepository";
+import { ICreateSpecificationDTO, ISpecificationsRepository } from "../interfaces/ISpecificationsRepository";
 
-class SpecificationRepositoryInMemory implements ISpecificationRepository {
+class SpecificationRepositoryInMemory implements ISpecificationsRepository {
     specification: Specification[] = []
 
     async create({ name, description }: ICreateSpecificationDTO): Promise<Specification> {
