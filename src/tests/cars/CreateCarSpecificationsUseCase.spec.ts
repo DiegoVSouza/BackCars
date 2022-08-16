@@ -1,26 +1,35 @@
 import { CarsRepositoryInMemory } from "../../modules/cars/repositories/in-memory/CarsRepositoryInMemory"
-import { CreateCarsSpecificationUseCase } from "../../modules/cars/useCases/createCarSpecification/CreateCarSpecificationsUseCase"
+import { SpecificationRepositoryInMemory } from "../../modules/cars/repositories/in-memory/SpecificationRepositoryInMemory"
+import { CreateCarSpecificationsUseCase } from "../../modules/cars/useCases/createCarSpecification/CreateCarSpecificationsUseCase"
 import { AppError } from "../../shared/errors/AppError"
 
-let createCarsSpecificationUseCase: CreateCarsSpecificationUseCase
+let createCarsSpecificationUseCase: CreateCarSpecificationsUseCase
 let carsRepositoryInMemory: CarsRepositoryInMemory
+let specificationRepositoryInMemory: SpecificationRepositoryInMemory
 
 describe("Create Car Specification", () => {
     beforeEach(() => {
         carsRepositoryInMemory = new CarsRepositoryInMemory()
-        createCarsSpecificationUseCase = new CreateCarsSpecificationUseCase(carsRepositoryInMemory)
+        specificationRepositoryInMemory = new SpecificationRepositoryInMemory()
+        createCarsSpecificationUseCase = new CreateCarSpecificationsUseCase(carsRepositoryInMemory, specificationRepositoryInMemory)
     })
     it("should not be able to add new specification to a not-existent car ", async () => {
         expect(async () => {
             const car_id = '123'
-            const specification_id = ["123", "123"]
-            await createCarsSpecificationUseCase.execute({ car_id, specification_id })
+            const specifications_id = ["123", "123"]
+            await createCarsSpecificationUseCase.execute({ car_id, specifications_id })
         }).rejects.toBeInstanceOf(AppError)
 
     })
     it("should be able to add new specification to a car ", async () => {
 
-        const specification_id = ["123", "123"]
+        const specifications = await specificationRepositoryInMemory.create({
+            description: "description01",
+            name: 'name01',
+
+        })
+        const specifications_id = [specifications.id]
+
         const car = await carsRepositoryInMemory.create({
             name: "car01",
             description: "description01",
@@ -31,7 +40,9 @@ describe("Create Car Specification", () => {
             category_id: "123"
         })
 
-        await createCarsSpecificationUseCase.execute({ car_id: car.id, specification_id })
 
+        const SpecificationCars = await createCarsSpecificationUseCase.execute({ car_id: car.id, specifications_id })
+        expect(SpecificationCars).toHaveProperty("specifications")
+        expect(SpecificationCars.specifications.length).toBe(1)
     })
 })

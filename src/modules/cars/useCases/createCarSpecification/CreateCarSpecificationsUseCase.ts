@@ -1,22 +1,29 @@
 import { inject, injectable } from "tsyringe"
 import { AppError } from "../../../../shared/errors/AppError"
+import { Car } from "../../../../shared/infra/typeorm/entities/Car"
 import { ICarsRepository } from "../../repositories/interfaces/ICarsRepository"
+import { ISpecificationRepository } from "../../repositories/interfaces/ISpecificationRepository"
 
 interface IRequest {
     car_id: string,
-    specification_id: string[]
+    specifications_id: string[]
 }
 @injectable()
-class CreateCarsSpecificationUseCase {
+class CreateCarSpecificationsUseCase {
     constructor(
-        // @inject("CarsRepository")
-        private carsRepository: ICarsRepository
+        @inject("CarsRepository")
+        private carsRepository: ICarsRepository,
+        @inject("SpecificationsRepository")
+        private specificationRepository: ISpecificationRepository
     ) { }
-    async execute({ car_id, specification_id }: IRequest): Promise<void> {
+    async execute({ car_id, specifications_id }: IRequest): Promise<Car> {
         const carExists = await this.carsRepository.findById(car_id)
         if (!carExists) throw new AppError("Cars does not exist ")
-        carExists.specifications
+        const specifications = await this.specificationRepository.findByIds(specifications_id)
+        carExists.specifications = specifications
+        await this.carsRepository.create(carExists)
+        return carExists
     }
 }
 
-export { CreateCarsSpecificationUseCase }
+export { CreateCarSpecificationsUseCase }
