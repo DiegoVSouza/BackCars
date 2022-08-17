@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm"
 export class CreateCarImages1660650457613 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.createTable(
+        await queryRunner.createTable(
             new Table(
                 {
                     name: "car_images",
@@ -18,7 +18,7 @@ export class CreateCarImages1660650457613 implements MigrationInterface {
                             type: "uuid"
                         },
                         {
-                            name: "image_name",
+                            name: "images_name",
                             type: "varchar"
                         },
                         {
@@ -43,7 +43,7 @@ export class CreateCarImages1660650457613 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("specifications_cars")
+        await queryRunner.dropTable("car_images")
     }
 
 }

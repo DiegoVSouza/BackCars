@@ -1,7 +1,8 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Car } from "./Car";
+import { v4 as uuidV4 } from "uuid";
 
-@Entity("cars_image")
+@Entity("car_images")
 class CarImage {
     @PrimaryColumn()
     id: string
@@ -9,9 +10,16 @@ class CarImage {
     @JoinColumn({ name: "car_id" })
     car_id: string
     @Column()
-    image_name: string
+    images_name: string
     @CreateDateColumn()
     created_at: Date;
+
+    constructor() {
+        if (!this.id) {
+            this.id = uuidV4();
+        }
+    }
 }
 
 export { CarImage }
+
