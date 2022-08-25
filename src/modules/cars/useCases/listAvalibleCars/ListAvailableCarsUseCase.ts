@@ -16,7 +16,7 @@ class ListAvailableCarsUseCase {
         private carsRepository: ICarsRepository
     ) { }
     async execute({ category_id, brand, name }: IRequest): Promise<Car[]> {
-        const cars = await this.carsRepository.findAvalible(category_id, brand, name)
+        const cars = await this.carsRepository.findAvailable(category_id, brand, name)
         return cars
     }
 }

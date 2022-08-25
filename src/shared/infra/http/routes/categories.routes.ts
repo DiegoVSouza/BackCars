@@ -17,11 +17,6 @@ const listCategoriesController = new ListCategoriesController()
 
 const categoriesRoutes = Router();
 
-const upload = multer({
-    dest: "./tmp"
-
-})
-
 
 categoriesRoutes.post("/", ensureAutheticate, ensureAdmin, createCategoryController.handle)
 

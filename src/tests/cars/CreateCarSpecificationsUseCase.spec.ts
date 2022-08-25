@@ -14,11 +14,10 @@ describe("Create Car Specification", () => {
         createCarsSpecificationUseCase = new CreateCarSpecificationsUseCase(carsRepositoryInMemory, specificationRepositoryInMemory)
     })
     it("should not be able to add new specification to a not-existent car ", async () => {
-        expect(async () => {
-            const car_id = '123'
-            const specifications_id = ["123", "123"]
-            await createCarsSpecificationUseCase.execute({ car_id, specifications_id })
-        }).rejects.toBeInstanceOf(AppError)
+        const car_id = '123'
+        const specifications_id = ["123", "123"]
+        await expect(createCarsSpecificationUseCase.execute({ car_id, specifications_id })
+        ).rejects.toEqual(new AppError("Car does not exist"))
 
     })
     it("should be able to add new specification to a car ", async () => {

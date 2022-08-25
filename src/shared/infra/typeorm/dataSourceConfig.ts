@@ -1,13 +1,15 @@
 import { DataSource } from "typeorm"
 import "reflect-metadata"
+require('dotenv').config()
 
+const database = process.env.NODE_ENV === "test" ? "test" : "ignitedb"
 export const AppDataSource = new DataSource({
     type: "postgres",
     port: 5432,
     host: "localhost",
     username: "postgres",
     password: "123",
-    database: "ignitedb",
+    database: database,
     migrations: [__dirname + "/migrations/*.ts"],
     entities: [__dirname + "/entities/*.ts"],
     subscribers: [__dirname + "/subscribers/*.ts"],

@@ -18,7 +18,7 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
 
 
     async list(): Promise<Category[]> {
-        const categories = await this.categories
+        const categories = this.categories
         return categories
     }
 
