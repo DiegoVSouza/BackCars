@@ -1,11 +1,15 @@
 {
   "name": "RENTALX",
   "version": "1.0.0",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "test": " jest --runInBand --detectOpenHandles",
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "migrate": "prisma migrate dev --schema ./src/shared/infra/prisma/schema.prisma",
+    "dev": "yarn prisma generate && ts-node-dev --respawn --transpile-only src/shared/infra/http/server.ts --schema ./src/shared/infra/prisma/schema.prisma ",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "migration:create": "cd src/shared/infra/typeorm/migrations && npx typeorm-ts-node-commonjs migration:create",
     "migration:generate": "cd src/shared/infra/typeorm/migrations && npx typeorm-ts-node-commonjs migration:generate -d ../dataSourceConfig.ts",
@@ -16,15 +20,19 @@
     "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
   },
   "dependencies": {
+    "@prisma/client": "^4.3.1",
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "csv-parse": "^5.0.4",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "pg": "^8.7.3",
+    "prisma": "^4.3.1",
     "reflect-metadata": "^0.1.13",
     "supertest": "^6.2.4",
     "swagger-ui-express": "^4.3.0",

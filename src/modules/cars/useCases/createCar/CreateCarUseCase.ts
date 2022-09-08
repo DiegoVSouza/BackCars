@@ -1,14 +1,13 @@
 import { inject, injectable } from "tsyringe"
 import { AppError } from "../../../../shared/errors/AppError"
-import { Car } from "../../../../shared/infra/typeorm/entities/Car"
+import { Car } from "../../../../shared/infra/prisma/entities/Car"
 import { ICarsRepository } from "../../repositories/interfaces/ICarsRepository"
 
 interface IRequest {
     name: string,
     description: string,
-    daily_rate: number,
+    price: number,
     license_plate: string,
-    fine_amount: number,
     brand: string,
     category_id: string
 }
@@ -20,12 +19,12 @@ class CreateCarUseCase {
         private carsRepository: ICarsRepository
     ) { }
 
-    async execute({ name, description, daily_rate, license_plate, fine_amount, brand, category_id }: IRequest): Promise<Car> {
+    async execute({ name, description, price, license_plate, brand, category_id }: IRequest): Promise<Car> {
         const carAlredyExists = await this.carsRepository.findByLicensePlate(license_plate)
 
         if (carAlredyExists) throw new AppError("Car already exists")
 
-        const car = await this.carsRepository.create({ name, description, category_id, daily_rate, fine_amount, brand, license_plate })
+        const car = await this.carsRepository.create({ name, description, category_id, price, brand, license_plate })
 
         return car
     }

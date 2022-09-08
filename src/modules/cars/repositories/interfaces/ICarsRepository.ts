@@ -1,4 +1,4 @@
-import { Car } from "../../../../shared/infra/typeorm/entities/Car";
+import { Car } from "../../../../shared/infra/prisma/entities/Car";
 import { ICreateCarDTO } from "../../dtos/ICreateCarDTO"
 
 interface ICarsRepository {

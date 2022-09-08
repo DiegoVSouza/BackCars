@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { Category } from "../../../../shared/infra/typeorm/entities/Category";
+import { Category } from "../../../../shared/infra/prisma/entities/Category";
 import { ICategoriesRepository } from "../../repositories/interfaces/ICategoriesRepository";
 
 
