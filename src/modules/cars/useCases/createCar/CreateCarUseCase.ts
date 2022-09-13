@@ -9,7 +9,8 @@ interface IRequest {
     price: number,
     license_plate: string,
     brand: string,
-    category_id: string
+    category_id: string,
+    user_id: string
 }
 
 @injectable()
@@ -19,12 +20,12 @@ class CreateCarUseCase {
         private carsRepository: ICarsRepository
     ) { }
 
-    async execute({ name, description, price, license_plate, brand, category_id }: IRequest): Promise<Car> {
+    async execute({ name, description, price, license_plate, brand, category_id, user_id }: IRequest): Promise<Car> {
         const carAlredyExists = await this.carsRepository.findByLicensePlate(license_plate)
 
         if (carAlredyExists) throw new AppError("Car already exists")
 
-        const car = await this.carsRepository.create({ name, description, category_id, price, brand, license_plate })
+        const car = await this.carsRepository.create({ name, description, category_id, price, brand, license_plate, user_id })
 
         return car
     }

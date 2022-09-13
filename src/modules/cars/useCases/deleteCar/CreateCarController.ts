@@ -4,10 +4,9 @@ import { CreateCarUseCase } from "./CreateCarUseCase"
 
 class CreateCarController {
     async handle(req: Request, res: Response) {
-        const { name, description, license_plate, price, brand, category_id } = req.body
-        const { id } = req.user
+        const { car_id } = req.params
         const createCarUseCase = container.resolve(CreateCarUseCase)
-        const car = await createCarUseCase.execute({ name, description, license_plate, price, brand, category_id, user_id: id })
+        const car = await createCarUseCase.execute({ car_id })
         return res.status(201).json(car)
     }
 }

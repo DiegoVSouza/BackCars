@@ -8,6 +8,7 @@ interface ICreateCarDTO {
     price: number
     brand: string
     category_id: string
+    user_id: string
     specifications?: Specification[]
     available?: boolean
 }

@@ -1,4 +1,5 @@
 import { Repository } from "typeorm";
+import { Car } from "../../../../../shared/infra/prisma/entities/Car";
 import { AppDataSource } from "../../../../../shared/infra/typeorm/dataSourceConfig";
 import { Car } from "../../../../../shared/infra/typeorm/entities/Car";
 import { ICreateCarDTO } from "../../../dtos/ICreateCarDTO";
@@ -20,6 +21,17 @@ class CarsRepository implements ICarsRepository {
         await this.repository.save(car)
 
         return car
+    }
+
+    async update(data: ICreateCarDTO): Promise<Car> {
+        // const car = this.repository.update({
+        //     name, description, category_id, price, brand, license_plate, specifications, id
+        // })
+
+        // await this.repository.save(car)
+
+        // return car
+        return
     }
 
     async findByLicensePlate(license_plate: string): Promise<Car> {

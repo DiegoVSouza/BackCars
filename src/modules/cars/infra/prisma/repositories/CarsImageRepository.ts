@@ -1,6 +1,6 @@
 import { prisma } from "../../../../../shared/infra/prisma/prisma";
-import { CarImage } from "../../../../../shared/infra/prisma/entities/CarImage";
 import { ICarsImageRepository } from "../../../repositories/interfaces/ICarsImageRepository";
+import { CarImage } from "../../../../../shared/infra/prisma/entities/CarImage";
 
 class CarsImageRepository implements ICarsImageRepository {
 
@@ -12,6 +12,16 @@ class CarsImageRepository implements ICarsImageRepository {
             }
         })
         return carImage
+    }
+    async list(car_id?: string, id?: string): Promise<CarImage[]> {
+        const imagesFilter = await prisma.carImage.findMany({
+            where: {
+                id,
+                car_id
+            }
+        })
+
+        return imagesFilter
     }
 }
 export { CarsImageRepository }

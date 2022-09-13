@@ -6,6 +6,7 @@ interface IRequest {
     category_id?: string,
     brand?: string,
     name?: string,
+    user_id?: string,
 
 }
 
@@ -15,8 +16,8 @@ class ListAvailableCarsUseCase {
         @inject("CarsRepository")
         private carsRepository: ICarsRepository
     ) { }
-    async execute({ category_id, brand, name }: IRequest): Promise<Car[]> {
-        const cars = await this.carsRepository.findAvailable(category_id, brand, name)
+    async execute({ category_id, brand, name, user_id }: IRequest): Promise<Car[]> {
+        const cars = await this.carsRepository.findAvailable(category_id, brand, name, user_id)
         return cars
     }
 }
