@@ -1,5 +1,5 @@
+import { prisma } from "../../../../../../prisma/prisma"
 import { UserTokens } from "../../../../../shared/infra/prisma/entities/UserTokens"
-import { prisma } from "../../../../../shared/infra/prisma/prisma"
 import { IUsersTokensRepository } from "../../../repositories/interfaces/IUsersTokensRepository"
 
 class UsersTokensRepository implements IUsersTokensRepository {

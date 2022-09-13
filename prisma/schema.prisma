@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id                 String               @id @default(uuid()) @db.Uuid
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  category_id        String               @db.Uuid
+  available          Boolean              @default(true)
+  name               String
+  description        String
+  license_plate      String
+  price              Int
+  brand              String
+  user_id            String               @db.Uuid
+  category           Category             @relation(fields: [category_id], references: [id])
+  user               User                 @relation(fields: [user_id], references: [id])
+  CarImage           CarImage[]
+  Sale               Sale[]
+  Specification_cars Specification_cars[]
+  specifications     Specifications[]
+}
+
+model Category {
+  id          String   @id @default(uuid()) @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  name        String
+  description String
+  Car         Car[]
+}
+
+model Specifications {
+  id                 String               @id @default(uuid()) @db.Uuid
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  name               String
+  description        String
+  Specification_cars Specification_cars[]
+  Car                Car[]
+}
+
+model CarImage {
+  id          String   @id @default(uuid()) @db.Uuid
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  car_id      String   @db.Uuid
+  images_name String
+  path        String
+  car         Car      @relation(fields: [car_id], references: [id])
+}
+
+model Sale {
+  id              String   @id @default(uuid()) @db.Uuid
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  car_id          String   @db.Uuid
+  user_id         String   @db.Uuid
+  client_id       String   @db.Uuid
+  sold            Boolean  @default(false)
+  proposal_amount Int
+  car             Car      @relation(fields: [car_id], references: [id])
+  user            User     @relation(fields: [user_id], references: [id])
+}
+
+model User {
+  id             String       @id @default(uuid()) @db.Uuid
+  created_at     DateTime     @default(now()) @db.Timestamptz(6)
+  isAdmin        Boolean      @default(false)
+  name           String
+  email          String
+  password       String
+  driver_license String
+  avatar         String?
+  Car            Car[]
+  Sale           Sale[]
+  UserTokens     UserTokens[]
+}
+
+model UserTokens {
+  id            String   @id @default(uuid()) @db.Uuid
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  refresh_token String
+  user_id       String   @db.Uuid
+  expires_date  DateTime @db.Timestamptz(6)
+  user          User     @relation(fields: [user_id], references: [id])
+}
+
+model Specification_cars {
+  created_at       DateTime       @default(now()) @db.Timestamptz(6)
+  car_id           String         @db.Uuid
+  specification_id String         @db.Uuid
+  car              Car            @relation(fields: [car_id], references: [id])
+  specifications   Specifications @relation(fields: [specification_id], references: [id])
+
+  @@id([car_id, specification_id])
+}

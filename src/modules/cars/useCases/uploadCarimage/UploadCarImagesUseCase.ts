@@ -6,7 +6,13 @@ import { ICarsRepository } from "../../repositories/interfaces/ICarsRepository";
 
 interface IRequest {
     car_id: string;
-    images_name: string[];
+    images: IFiles[];
+}
+
+
+interface IFiles {
+    filename: string
+    path: string
 }
 
 @injectable()
@@ -17,12 +23,13 @@ class UploadCarImagesUseCase {
         @inject("CarsRepository")
         private carsRepository: ICarsRepository
     ) { }
-    async execute({ car_id, images_name }: IRequest): Promise<void> {
+    async execute({ car_id, images }: IRequest): Promise<void> {
 
         const carExists = await this.carsRepository.findById(car_id)
         if (!carExists) throw new AppError("Cars does not exists")
-        images_name.map(async image => {
-            await this.carsImageRepository.create(car_id, image)
+    
+        images.map(async image => {
+            await this.carsImageRepository.create(car_id, image.filename, image.path)
         })
     }
 }

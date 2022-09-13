@@ -1,17 +1,15 @@
 {
-  "name": "RENTALX",
+  "name": "cars_for_sale",
   "version": "1.0.0",
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
+
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "test": " jest --runInBand --detectOpenHandles",
-    "migrate": "prisma migrate dev --schema ./src/shared/infra/prisma/schema.prisma",
-    "push": "prisma db push --schema ./src/shared/infra/prisma/schema.prisma",
-    "studio": "prisma studio --schema ./src/shared/infra/prisma/schema.prisma",
-    "dev": "yarn prisma generate && ts-node-dev --respawn --transpile-only src/shared/infra/http/server.ts --schema ./src/shared/infra/prisma/schema.prisma ",
+    "migrate": "prisma migrate dev ",
+    "push": "prisma db push ",
+    "studio": "prisma studio ",
+    "dev": "yarn prisma generate && ts-node-dev --respawn --transpile-only src/shared/infra/http/server.ts  ",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "migration:create": "cd src/shared/infra/typeorm/migrations && npx typeorm-ts-node-commonjs migration:create",
     "migration:generate": "cd src/shared/infra/typeorm/migrations && npx typeorm-ts-node-commonjs migration:generate -d ../dataSourceConfig.ts",

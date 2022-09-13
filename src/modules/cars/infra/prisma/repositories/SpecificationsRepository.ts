@@ -1,4 +1,4 @@
-import { prisma } from "../../../../../shared/infra/prisma/prisma";
+import { prisma } from "../../../../../../prisma/prisma";
 import { Specification } from "../../../../../shared/infra/typeorm/entities/Specification";
 import { ICreateSpecificationDTO, ISpecificationsRepository } from "../../../repositories/interfaces/ISpecificationsRepository";
 

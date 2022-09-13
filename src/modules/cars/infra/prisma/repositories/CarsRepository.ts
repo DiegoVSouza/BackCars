@@ -1,4 +1,4 @@
-import { prisma } from "../../../../../shared/infra/prisma/prisma";
+import { prisma } from "../../../../../../prisma/prisma";
 import { Car } from "../../../../../shared/infra/prisma/entities/Car";
 import { ICreateCarDTO } from "../../../dtos/ICreateCarDTO";
 import { ICarsRepository } from "../../../repositories/interfaces/ICarsRepository";
@@ -77,7 +77,7 @@ class CarsRepository implements ICarsRepository {
         await prisma.car.delete({
             where: {
                 id: car_id
-            },
+            }
         })
     }
 

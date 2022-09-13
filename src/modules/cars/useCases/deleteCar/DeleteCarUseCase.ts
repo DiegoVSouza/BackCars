@@ -8,7 +8,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateCarUseCase {
+class DeleteCarUseCase {
     constructor(
         @inject("CarsRepository")
         private carsRepository: ICarsRepository
@@ -16,12 +16,10 @@ class CreateCarUseCase {
 
     async execute({ car_id }: IRequest): Promise<void> {
         const carAlredyExists = await this.carsRepository.findById(car_id)
-
         if (!carAlredyExists) throw new AppError("Car does not exists")
-
         await this.carsRepository.deleteCar(car_id)
 
     }
 }
 
-export { CreateCarUseCase }
+export { DeleteCarUseCase }

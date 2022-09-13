@@ -1,7 +1,7 @@
-import { prisma } from "../../../../../shared/infra/prisma/prisma";
 import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
 import { IUsersRepository } from "../../../repositories/interfaces/IUsersRepository";
 import { User } from "../../../../../shared/infra/prisma/entities/User";
+import { prisma } from "../../../../../../prisma/prisma";
 
 class UsersRepository implements IUsersRepository {
 

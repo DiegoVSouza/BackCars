@@ -1,4 +1,4 @@
-import { prisma } from "../../../../../shared/infra/prisma/prisma";
+import { prisma } from "../../../../../../prisma/prisma";
 import { Sale } from "../../../../../shared/infra/prisma/entities/Sale";
 import { ICreateSaleDTO } from "../../../DTOs/ICreateSaleDTO";
 import { ISalesRepository } from "../../../repositories/interfaces/ISalesRepository";

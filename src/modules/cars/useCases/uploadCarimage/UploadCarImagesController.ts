@@ -4,15 +4,16 @@ import { UploadCarImagesUseCase } from "./UploadCarImagesUseCase";
 
 interface IFiles {
     filename: string
+    path: string
 }
 class UploadCarImagesController {
     async handle(req: Request, res: Response) {
         const { id } = req.params
         const images = req.files as IFiles[]
+        console.log(images)
         const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase)
 
-        const images_name = images.map((file) => file.filename)
-        await uploadCarImagesUseCase.execute({ car_id: id, images_name })
+        await uploadCarImagesUseCase.execute({ car_id: id, images })
 
         res.status(200).send()
     }

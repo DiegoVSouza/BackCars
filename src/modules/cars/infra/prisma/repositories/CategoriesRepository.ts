@@ -1,4 +1,4 @@
-import { prisma } from "../../../../../shared/infra/prisma/prisma";
+import { prisma } from "../../../../../../prisma/prisma";
 import { Category } from "../../../../../shared/infra/typeorm/entities/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "../../../repositories/interfaces/ICategoriesRepository";
 
