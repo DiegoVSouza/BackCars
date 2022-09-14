@@ -13,7 +13,7 @@
 **1:** Clone o repositório.
 
 ```
-git clone https://github.com/farciomernandes/Desafio-Loopis.git
+git clone https://github.com/DiegoVSouza/Cars-For-Sale-Back-End.git
 ```
 
 **2:** Acesse o diretório do projeto.
