@@ -4,12 +4,12 @@ import { prisma } from "../../../../../../prisma/prisma";
 
 class CarsImageRepository implements ICarsImageRepository {
 
-    async create(car_id: string, images_name: string, path: string): Promise<CarImage> {
+    async create(car_id: string, images_name: string, url: string): Promise<CarImage> {
         const carImage = prisma.carImage.create({
             data: {
                 car_id,
                 images_name,
-                path
+                url
             }
         })
         return carImage

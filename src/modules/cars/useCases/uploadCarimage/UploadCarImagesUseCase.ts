@@ -11,8 +11,8 @@ interface IRequest {
 
 
 interface IFiles {
-    filename: string
-    path: string
+    url: string
+    title: string
 }
 
 @injectable()
@@ -27,9 +27,9 @@ class UploadCarImagesUseCase {
 
         const carExists = await this.carsRepository.findById(car_id)
         if (!carExists) throw new AppError("Cars does not exists")
-    
+
         images.map(async image => {
-            await this.carsImageRepository.create(car_id, image.filename, image.path)
+            await this.carsImageRepository.create(car_id, image.title, image.url)
         })
     }
 }
